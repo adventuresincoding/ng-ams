@@ -1,0 +1,76 @@
+<div class="page-layout simple right-sidenav" fusePerfectScrollbar>
+
+  <mat-sidenav-container>
+
+    <!-- CENTER -->
+    <div class="center" fusePerfectScrollbar>
+
+      <!-- HEADER -->
+      <div class="header mat-accent-bg p-24" fxLayout="row" fxLayoutAlign="start center">
+
+        <button mat-button class="mat-icon-button sidenav-toggle" fuseMatSidenavToggler="simple-right-sidenav" fxHide.gt-md>
+          <mat-icon>menu</mat-icon>
+        </button>
+        <div class="logo" fxLayout="row" fxLayoutAlign="start center">
+          <mat-icon class="logo-icon mr-16" *fuseIfOnDom [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}" (click)="goBack()"
+            matTooltip="Go Back">arrow_back</mat-icon>
+        </div>
+
+        <div>
+          <h2>Manage Desk</h2>
+        </div>
+
+      </div>
+      <!-- / HEADER -->
+
+      <!-- CONTENT -->
+      <div class="content p-0 mat-white-bg">
+        <router-outlet></router-outlet>
+      </div>
+      <!-- / CONTENT -->
+
+    </div>
+    <!-- / CENTER -->
+    <!-- SIDENAV -->
+    <mat-sidenav class="sidenav" align="end" opened="true" mode="side" fuseMatSidenavHelper="simple-right-sidenav" mat-is-locked-open="gt-md">
+
+      <div class="sidenav-content p-24" fusePerfectScrollbar>
+
+        <div class="demo-sidenav">
+          <mat-list>
+            <h3 matSubheader></h3>
+
+            <mat-list-item [routerLink]="['/desk/manage']">
+              <span>Add</span>
+            </mat-list-item>
+
+            <mat-divider></mat-divider>
+
+            <mat-list-item [routerLink]="['/desk/assign/desk']">
+              <span>Assign Desk</span>
+            </mat-list-item>
+
+            <mat-divider></mat-divider>
+
+            <mat-list-item [routerLink]="['/desk/assign/software']">
+              <span>Assign Software</span>
+            </mat-list-item>
+
+            <mat-divider></mat-divider>
+
+            <mat-list-item [routerLink]="['/desk/search']">
+              <span>Search</span>
+            </mat-list-item>
+
+            <mat-divider></mat-divider>
+
+          </mat-list>
+        </div>
+      </div>
+
+    </mat-sidenav>
+    <!-- / SIDENAV -->
+
+  </mat-sidenav-container>
+
+</div>

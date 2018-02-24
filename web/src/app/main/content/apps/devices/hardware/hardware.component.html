@@ -1,0 +1,84 @@
+<form id="hardwareForm" class="p-8" fxLayout="column" name="form" [formGroup]="hardwareForm" (ngSubmit)="onSubmit()" fusePerfectScrollbar>
+
+  <!--<div id="forms" class="page-layout simple fullwidth" fxLayout="row" fusePerfectScrollbar>-->
+
+  <div class="mat-white-bg mat-elevation-z4 pl-24 pt-24 pb-24 pr-8 mr-8 mb-24" fxLayout="column" formGroupName="hardwareFormGroup">
+
+    <div class="" fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+
+      <mat-input-container fxFlex="33">
+        <mat-select placeholder="Hardware Type" formControlName="hardwareType" required [ngModel]="hardware?.hardwareType" (ngModelChange)="getDeviceTypeList($event)">
+          <mat-option>--</mat-option>
+          <mat-option *ngFor="let hardware of hardwareList" [value]="hardware.value">
+            {{hardware.text}}
+          </mat-option>
+        </mat-select>
+        <!--<mat-error *ngIf="hardware?.hardwareType?.hasError('required')">Please choose an device type</mat-error>-->
+        <!--<mat-hint>{{deviceType.value?.value}}</mat-hint>-->
+      </mat-input-container>
+
+      <mat-input-container fxFlex="33">
+        <input matInput placeholder="Serial No" formControlName="sNo" [ngModel]="hardware?.sNo" (ngModelChange)="hardware.sNo = $event">
+        <mat-error *ngIf="hardwareFormGroup.controls.sNo.errors">Please choose Serial No</mat-error>
+      </mat-input-container>
+
+      <mat-input-container fxFlex="33">
+        <input matInput placeholder="Unique Id" name="deviceType" formControlName="uniqueId" [ngModel]="hardware?.uniqueId" (ngModelChange)="hardware.uniqueId= $event">
+        <!--<mat-error *ngIf="formErrors.uniqueId.required">
+          Required
+        </mat-error>-->
+        <mat-error *ngIf="hardwareFormGroup.controls.uniqueId.errors">Please choose UniqueId</mat-error>
+      </mat-input-container>
+
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+
+      <mat-input-container fxFlex="33">
+        <input matInput placeholder="Brand" name="brand" formControlName="brand" [ngModel]="hardware?.brand" (ngModelChange)="hardware.brand= $event">
+        <mat-error *ngIf="formErrors.brand.required">
+          Required
+        </mat-error>
+      </mat-input-container>
+
+      <mat-input-container fxFlex="33">
+        <input matInput [matDatepicker]="picker" placeholder="Warranty" formControlName="warranty" [ngModel]="hardware?.warranty"
+          (ngModelChange)="hardware.warranty= $event">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker startView="year" [startAt]="startDate"></mat-datepicker>
+
+      </mat-input-container>
+
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+      <mat-input-container fxFlex="67">
+        <textarea matInput placeholder="Leave a comment" formControlName="description" [ngModel]="hardware?.description" (ngModelChange)="hardware.description = $event"></textarea>
+      </mat-input-container>
+    </div>
+
+  </div>
+
+  <!--</div>-->
+
+  <div class="mat-white-bg mat-elevation-z4 pl-24 pt-24 pb-24 pr-8 mr-8 mb-24 div-example" fxLayout="column" formGroupName="dynamicFeatures">
+    <!--<div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">-->
+    <!--<mat-card>
+      <mat-card-content>-->
+    <span class="mat-title">Add Hardware features</span>
+    <section class="example-section pt-24" *ngFor="let lookupType of lookupTypes; let i=index;">
+      <label class="example-margin">{{lookupType.lookupTypeName}} :</label>
+      <mat-radio-group class="ml-20" [formControlName]="lookupType.lookupTypeName" [ngModel]="feature?.featureId" (ngModelChange)="setFeature($event,lookupType)">
+        <mat-radio-button class="pr-24" value="{{type.featureId}}" *ngFor="let type of lookupType.assetLookupTypesFeature">{{type.propertyValue}}</mat-radio-button>
+
+      </mat-radio-group>
+    </section>
+
+    <div class="pt-24" fxLayout="row" fxLayoutAlign="center center">
+      <button type="submit" [disabled]="hardwareForm.invalid" mat-raised-button color="accent">
+        Finish
+      </button>
+    </div>
+
+  </div>
+</form>

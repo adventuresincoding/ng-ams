@@ -1,0 +1,80 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title">New Exam</span>
+            <button mat-button class="mat-icon-button" (click)="dialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </div>
+    </mat-toolbar>
+
+    <div mat-dialog-content class="p-24 m-0" fusePerfectScrollbar>
+
+        <form [formGroup]="contactForm">
+
+            <div class="mb-24" fxLayout="row" fxLayoutAlign="start start">
+                <mat-icon class="mr-12 mt-12">account_circle</mat-icon>
+                <mat-form-field fxFlex>
+                    <input name="ExamName" [ngModel]="exam?.examName" (ngModelChange)="exam.examName=$event" formControlName="ExamName" placeholder="Exam Name"
+                        matInput required>
+                </mat-form-field>
+            </div>
+
+            <div class="mb-24" fxLayout="row" fxLayoutAlign="start start">
+                <mat-icon class="mr-12 mt-12">account_circle</mat-icon>
+                <mat-form-field fxFlex>
+                    <input name="ExamFee" [ngModel]="exam?.examFee" (ngModelChange)="exam.examFee=$event" formControlName="ExamFee" placeholder="Exam Fee"
+                        matInput required>
+                </mat-form-field>
+                <mat-form-field class="mr-24" fxFlex>
+                    <input matInput [ngModel]="exam?.examDate" (ngModelChange)="exam.examDate = $event" formControlName="ExamDate" [matDatepicker]="birthdayDatePicker"
+                        placeholder="Exam Date">
+                    <mat-datepicker-toggle matSuffix [for]="birthdayDatePicker"></mat-datepicker-toggle>
+                    <mat-datepicker #birthdayDatePicker></mat-datepicker>
+                </mat-form-field>
+            </div>
+
+            <div class="mb-24" fxLayout="row" fxLayoutAlign="start start">
+                <mat-icon class="mr-12 mt-12"></mat-icon>
+                <mat-form-field fxFlex>
+                    <input name="FromStandard" [ngModel]="exam?.fromStandard" (ngModel)="exam.fromStandard =$event" formControlName="FromStandard"
+                        placeholder="From Class" matInput>
+                </mat-form-field>
+                <mat-icon class="mr-12 mt-12">star</mat-icon>
+                <mat-form-field fxFlex>
+                    <input name="ToStandard" [ngModel]="exam?.toStandard" (ngModelChange)="exam.toStandard = $event" formControlName="ToStandard"
+                        matInput placeholder="To Class">
+                </mat-form-field>
+            </div>
+
+            <div fxLayout="row" class="textarea-wrapper" fxLayoutAlign="start start">
+                <mat-icon class="mr-12 mt-12">note</mat-icon>
+                <mat-form-field fxFlex>
+                    <textarea name="notes" [ngModel]="exam?.description" (ngModelChange)="exam.description = $event" formControlName="notes"
+                        placeholder="Notes" matInput type="text" max-rows="4"></textarea>
+                </mat-form-field>
+            </div>
+
+        </form>
+
+    </div>
+
+    <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="space-between center">
+
+        <button *ngIf="action !=='edit'" mat-raised-button (click)="dialogRef.close(contactForm)" class="save-button mat-accent"
+            [disabled]="contactForm.invalid" aria-label="SAVE">
+            SAVE
+        </button>
+
+        <button *ngIf="action ==='edit'" mat-raised-button (click)="dialogRef.close(['save',contactForm])" class="save-button mat-accent"
+            [disabled]="contactForm.invalid" aria-label="SAVE">
+            SAVE
+        </button>
+
+        <button *ngIf="action ==='edit'" mat-button class="mat-icon-button" (click)="dialogRef.close(['delete',contactForm])" aria-label="Delete"
+            matTooltip="Delete">
+            <mat-icon>delete</mat-icon>
+        </button>
+
+    </div>
+</div>

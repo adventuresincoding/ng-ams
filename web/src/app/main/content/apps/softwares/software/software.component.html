@@ -1,0 +1,120 @@
+<form id="hardwareForm example-container" class="p-8" fxLayout="column" name="form" [formGroup]="softwareForm" (ngSubmit)="onSubmit()" fusePerfectScrollbar>
+
+    <div class="example-loading-shade" *ngIf="isLoadingResults || isRateLimitReached">
+        <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+        <div class="example-rate-limit-reached" *ngIf="isRateLimitReached">
+            GitHub's API rate limit has been reached. It will be reset in one minute.
+        </div>
+    </div>
+
+    <div class="mat-white-bg mat-elevation-z4 pl-24 pt-24 pb-24 pr-8 mr-8 mb-24" fxLayout="column">
+
+        <div class="" fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+
+            <mat-input-container fxFlex="33">
+                <mat-select placeholder="Software type" formControlName="softwareType" required [ngModel]="software?.softwareType" (ngModelChange)="software.softwareType =$event">
+                    <mat-option>--</mat-option>
+                    <mat-option *ngFor="let software of softwareType" [value]="software.value">
+                        {{software.text}}
+                    </mat-option>
+                </mat-select>
+                <!--<mat-error *ngIf="hardware?.hardwareType?.hasError('required')">Please choose an device type</mat-error>-->
+                <!--<mat-hint>{{deviceType.value?.value}}</mat-hint>-->
+            </mat-input-container>
+
+            <mat-input-container fxFlex="33">
+                <input matInput placeholder="Software name" formControlName="softwareName" [ngModel]="software?.softwareName" (ngModelChange)="software.softwareName = $event">
+                <!-- <mat-error *ngIf="hardwareFormGroup.controls.sNo.errors">Please choose Serial No</mat-error> -->
+            </mat-input-container>
+
+            <mat-input-container fxFlex="33">
+                <mat-select placeholder="Department" formControlName="department" [ngModel]="software?.department" (ngModelChange)="software.department =$event">
+                    <mat-option>--</mat-option>
+                    <mat-option *ngFor="let department of departmentType" [value]="department.value">
+                        {{department.text}}
+                    </mat-option>
+                </mat-select>
+                <!--<mat-error *ngIf="hardware?.hardwareType?.hasError('required')">Please choose an device type</mat-error>-->
+                <!--<mat-hint>{{deviceType.value?.value}}</mat-hint>-->
+            </mat-input-container>
+
+
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+
+            <mat-input-container fxFlex="33">
+                <mat-select placeholder="License type" formControlName="licenseType" required [ngModel]="software?.licenseType" (ngModelChange)="software.licenseType  = $event">
+                    <mat-option>--</mat-option>
+                    <mat-option *ngFor="let license of licenseTypeList" [value]="license.value">
+                        {{license.text}}
+                    </mat-option>
+                </mat-select>
+                <!--<mat-error *ngIf="hardware?.hardwareType?.hasError('required')">Please choose an device type</mat-error>-->
+                <!--<mat-hint>{{deviceType.value?.value}}</mat-hint>-->
+            </mat-input-container>
+
+            <mat-input-container fxFlex="67">
+                <input matInput placeholder="License key" formControlName="licenseKey" [ngModel]="software?.licenseKey" (ngModelChange)="software.licenseKey = $event">
+                <!-- <mat-error *ngIf="hardwareFormGroup.controls.sNo.errors">Please choose Serial No</mat-error> -->
+            </mat-input-container>
+
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+
+            <mat-input-container fxFlex="33">
+                <input matInput placeholder="Purchased from" formControlName="purchasedFrom" [ngModel]="software?.purchasedFrom" (ngModelChange)="software.purchasedFrom = $event">
+                <!-- <mat-error *ngIf="hardwareFormGroup.controls.sNo.errors">Please choose Serial No</mat-error> -->
+            </mat-input-container>
+
+            <mat-input-container fxFlex="33">
+                <input matInput [matDatepicker]="picker" placeholder="Purchased date" formControlName="purchasedDate" [ngModel]="software?.purchasedDate"
+                    (ngModelChange)="software.purchasedDate= $event">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker startView="year" [startAt]="startDate"></mat-datepicker>
+
+            </mat-input-container>
+
+            <mat-input-container fxFlex="33">
+                <input matInput placeholder="Price" formControlName="price" [ngModel]="software?.price" (ngModelChange)="software.price = $event">
+                <!-- <mat-error *ngIf="hardwareFormGroup.controls.sNo.errors">Please choose Serial No</mat-error> -->
+            </mat-input-container>
+
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+
+            <mat-input-container fxFlex="33">
+                <input matInput placeholder="Total price" formControlName="totalPrice" [ngModel]="software?.finalPrice" (ngModelChange)="software.finalPrice = $event">
+                <!-- <mat-error *ngIf="hardwareFormGroup.controls.sNo.errors">Please choose Serial No</mat-error> -->
+            </mat-input-container>
+
+            <mat-input-container fxFlex="33">
+                <input matInput placeholder="No of licenses" formControlName="noOfLicenses" [ngModel]="software?.noOfLicenses" (ngModelChange)="software.noOfLicenses = $event">
+                <!-- <mat-error *ngIf="hardwareFormGroup.controls.sNo.errors">Please choose Serial No</mat-error> -->
+            </mat-input-container>
+
+            <mat-input-container fxFlex="33">
+                <input matInput placeholder="Support no." formControlName="supportNo" [ngModel]="software?.supportNo" (ngModelChange)="software.supportNo = $event">
+                <!-- <mat-error *ngIf="hardwareFormGroup.controls.sNo.errors">Please choose Serial No</mat-error> -->
+            </mat-input-container>
+
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+
+            <mat-input-container fxFlex="67">
+                <textarea matInput placeholder="Leave a comment" formControlName="comments" [ngModel]="software?.comments" (ngModelChange)="software.comments = $event"></textarea>
+            </mat-input-container>
+        </div>
+
+        <div class="pt-24" fxLayout="row" fxLayoutAlign="center center">
+            <button type="submit" [disabled]="softwareForm.invalid" mat-raised-button color="accent">
+                Finish
+            </button>
+        </div>
+
+    </div>
+
+</form>

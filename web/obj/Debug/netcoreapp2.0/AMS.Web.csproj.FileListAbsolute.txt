@@ -1,0 +1,10 @@
+D:\Practice\MyFolder\AmS\AMS\AMS.Web\bin\Debug\netcoreapp2.0\AMS.Web.deps.json
+D:\Practice\MyFolder\AmS\AMS\AMS.Web\bin\Debug\netcoreapp2.0\AMS.Web.runtimeconfig.json
+D:\Practice\MyFolder\AmS\AMS\AMS.Web\bin\Debug\netcoreapp2.0\AMS.Web.runtimeconfig.dev.json
+D:\Practice\MyFolder\AmS\AMS\AMS.Web\bin\Debug\netcoreapp2.0\AMS.Web.dll
+D:\Practice\MyFolder\AmS\AMS\AMS.Web\bin\Debug\netcoreapp2.0\AMS.Web.pdb
+D:\Practice\MyFolder\AmS\AMS\AMS.Web\obj\Debug\netcoreapp2.0\AMS.Web.csproj.CoreCompileInputs.cache
+D:\Practice\MyFolder\AmS\AMS\AMS.Web\obj\Debug\netcoreapp2.0\AMS.Web.AssemblyInfoInputs.cache
+D:\Practice\MyFolder\AmS\AMS\AMS.Web\obj\Debug\netcoreapp2.0\AMS.Web.AssemblyInfo.cs
+D:\Practice\MyFolder\AmS\AMS\AMS.Web\obj\Debug\netcoreapp2.0\AMS.Web.dll
+D:\Practice\MyFolder\AmS\AMS\AMS.Web\obj\Debug\netcoreapp2.0\AMS.Web.pdb

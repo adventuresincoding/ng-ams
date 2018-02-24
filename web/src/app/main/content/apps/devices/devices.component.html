@@ -1,0 +1,90 @@
+<div class="page-layout simple right-sidenav" fusePerfectScrollbar>
+
+  <mat-sidenav-container>
+
+    <!-- CENTER -->
+    <div class="center" fusePerfectScrollbar>
+
+      <!-- HEADER -->
+      <div class="header mat-accent-bg p-24" fxLayout="row" fxLayoutAlign="start center">
+
+        <button mat-button class="mat-icon-button sidenav-toggle"
+                fuseMatSidenavToggler="simple-right-sidenav"
+                fxHide.gt-md>
+          <mat-icon>menu</mat-icon>
+        </button>
+
+        <div>
+          <h2>Manage Devices</h2>
+        </div>
+
+      </div>
+      <!-- / HEADER -->
+
+      <!-- CONTENT -->      
+        <div class="content p-0 mat-white-bg">
+          <router-outlet></router-outlet>
+          <!--<fuse-demo-content></fuse-demo-content>-->
+
+        </div>
+        <!-- / CONTENT -->
+
+      </div>
+    <!-- / CENTER -->
+    <!-- SIDENAV -->
+    <mat-sidenav class="sidenav" align="end" opened="true" mode="side"
+                 fuseMatSidenavHelper="simple-right-sidenav" mat-is-locked-open="gt-md">
+
+      <div class="sidenav-content p-24" fusePerfectScrollbar>
+
+        <div class="demo-sidenav">
+          <mat-list>
+            <h3 matSubheader>Sidenav Demo</h3>
+
+            <!-- <mat-list-item>
+              <span>
+                <a class="nav-link" mat-ripple [ngClass]="{'active':filterBy ==='all'}" [routerLink]="['/devices/devices/add']">
+                  <span class="title">Add Device</span>
+                </a>
+              </span>
+            </mat-list-item>
+
+            <mat-divider></mat-divider> -->
+
+            <mat-list-item [routerLink]="['/devices/devices/hardware']">
+              <span>Add Hardware</span>
+            </mat-list-item>
+
+            <mat-divider></mat-divider>
+
+            <mat-list-item [routerLink]="['/devices/devices/hardware/search']">
+              <span>Search Hardware</span>
+            </mat-list-item>
+
+            <mat-divider></mat-divider>
+
+            <!-- <mat-list-item [routerLink]="['/devices/devices/add']">
+              <span>Look up</span>
+            </mat-list-item>
+
+            <mat-divider></mat-divider>
+
+            <mat-list-item (click)="openDialog()">
+              <span>Sidenav Item 5</span>
+            </mat-list-item>
+
+            <mat-divider></mat-divider>         -->
+
+          </mat-list>
+        </div>
+
+        <!--<fuse-demo-sidenav></fuse-demo-sidenav>-->
+
+      </div>
+
+    </mat-sidenav>
+    <!-- / SIDENAV -->
+
+  </mat-sidenav-container>
+
+</div>

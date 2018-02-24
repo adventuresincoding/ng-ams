@@ -1,0 +1,68 @@
+<form id="hardwareForm" class="p-8 example-form example-container" fxLayout="column" name="form" [formGroup]="deskForm" (ngSubmit)="onSubmit()"
+    fusePerfectScrollbar>
+
+    <div class="example-loading-shade" *ngIf="isLoadingResults || isRateLimitReached">
+        <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+        <div class="example-rate-limit-reached" *ngIf="isRateLimitReached">
+            GitHub's API rate limit has been reached. It will be reset in one minute.
+        </div>
+    </div>
+
+    <div class="mat-white-bg mat-elevation-z4 pl-24 pt-24 pb-24 pr-8 mr-8 mb-24" fxLayout="column">
+
+        <div class="" fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto" formGroupName="deskDetailForm">
+            <mat-input-container fxFlex="50">
+                <input matInput placeholder="Desk no" formControlName="deskNo" [ngModel]="desk?.deskNo" (ngModelChange)="desk.deskNo = $event">
+                <mat-error *ngIf="deskDetailForm.controls.deskNo.errors">Please choose Desk no</mat-error>
+            </mat-input-container>
+
+            <mat-input-container fxFlex="50">
+                <input matInput placeholder="Computer name" formControlName="computerName" [ngModel]="desk?.computerName" (ngModelChange)="desk.computerName = $event">
+                <mat-error *ngIf="deskDetailForm.controls.computerName.errors">Please choose Desk no</mat-error>
+            </mat-input-container>
+        </div>
+
+        <div class="" fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto" formGroupName="deskDetailForm">         
+
+            <mat-input-container fxFlex="50">
+                <mat-select placeholder="Location" [(ngModel)]="desk.location" formControlName="location">
+                    <mat-option>None</mat-option>
+                    <mat-option *ngFor="let location of locationList" [value]="location.value">{{location.text}}</mat-option>
+                </mat-select>              
+            </mat-input-container>
+
+        </div>
+
+        <!-- <div class="mat-white-bg mat-elevation-z4 pl-24 pt-24 pb-24 pr-8 mr-8 mb-24" fxLayout="column" > -->
+        <span class="mat-title">CPU Configuration</span>
+        <div class="example-container mat-elevation-z8" formGroupName="dynamicDeviceFormList">
+            <mat-table #table [dataSource]="dataSource">
+                <ng-container matColumnDef="deviceName">
+                    <mat-header-cell *matHeaderCellDef> Device Type</mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.deviceName}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="hardwareList">
+                    <mat-header-cell *matHeaderCellDef> Specifications</mat-header-cell>
+                    <mat-cell *matCellDef="let element">
+
+                        <mat-radio-group class="example-radio-group" formControlName="{{element.deviceName}}" (ngModelChange)="onDeviceChange($event,element.hardwareList)">
+                            <mat-radio-button class="example-radio-button" *ngFor="let item of element.hardwareList" [value]="item.deviceId">
+                                {{item.description}}
+                            </mat-radio-button>
+                        </mat-radio-group>
+                    </mat-cell>
+                </ng-container>
+
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            </mat-table>
+        </div>
+
+    </div>
+
+    <div class="pt-24" fxLayout="row" fxLayoutAlign="center center">
+        <button type="submit" [disabled]="deskForm.invalid" mat-raised-button color="accent">
+            Finish
+        </button>
+    </div>
+</form>

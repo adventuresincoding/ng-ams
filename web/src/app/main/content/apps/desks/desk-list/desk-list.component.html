@@ -1,0 +1,69 @@
+<div class="p-8" fxLayout="column" fusePerfectScrollbar>
+    <desk-search (onDeskSearch)="searchDesk($event)"></desk-search>
+
+    <div class="mat-white-bg mat-elevation-z8 mr-8 mb-24 example-container" fxLayout="column">
+        <div class="example-loading-shade" *ngIf="isLoadingResults || isRateLimitReached">
+            <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+            <div class="example-rate-limit-reached" *ngIf="isRateLimitReached">
+                GitHub's API rate limit has been reached. It will be reset in one minute.
+            </div>
+        </div>
+
+        <mat-table #table [dataSource]="dataSource" class="example-table" matSort matSortActive="created" matSortDisableClear matSortDirection="asc">
+
+            <!--- Note that these columns can be defined in any order.
+               The actual rendered columns are set as a property on the row definition" -->
+
+            <!-- Number Column -->
+            <ng-container matColumnDef="deskNo">
+                <mat-header-cell *matHeaderCellDef>Desk No</mat-header-cell>
+                <mat-cell *matCellDef="let row">{{ row.deskNo }}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="computerName">
+                <mat-header-cell *matHeaderCellDef>Computer Name</mat-header-cell>
+                <mat-cell *matCellDef="let row">{{ row.computerName }}</mat-cell>
+            </ng-container>
+            
+            <ng-container matColumnDef="location">
+                <mat-header-cell *matHeaderCellDef>Location</mat-header-cell>
+                <mat-cell *matCellDef="let row">{{ row.location | location }}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="assignedTo">
+                <mat-header-cell *matHeaderCellDef>Assigned To</mat-header-cell>
+                <mat-cell *matCellDef="let row">{{row.employee.firstName + ' ' + row.employee.lastName}}</mat-cell>
+            </ng-container>
+
+            <ng-container cdkColumnDef="buttons">
+                <mat-header-cell *cdkHeaderCellDef>Action</mat-header-cell>
+                <mat-cell *cdkCellDef="let desk">
+                    <div fxFlex="row" fxLayoutAlign="start center">                       
+
+                        <button mat-icon-button [matMenuTriggerFor]="moreMenu" aria-label="More" (click)="$event.stopPropagation();">
+                            <mat-icon>more_vert</mat-icon>
+                        </button>
+                        <mat-menu #moreMenu="matMenu" name="Action">
+                            <button mat-menu-item aria-label="edit" (click)="editDesk(desk.deskId)" [value]="value">
+                                <mat-icon>edit</mat-icon>
+                                <span>Edit</span>
+                            </button>
+                            <button mat-menu-item aria-label="edit" (click)="details(desk.deskId)" [value]="value">
+                                <mat-icon>forward</mat-icon>
+                                <span>Details</span>
+                            </button>
+                        </mat-menu>
+
+                    </div>
+
+                </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+
+        <mat-paginator [length]="resultsLength"  [pageSizeOptions]="[5, 10, 25, 100]">
+        </mat-paginator>
+    </div>
+</div>

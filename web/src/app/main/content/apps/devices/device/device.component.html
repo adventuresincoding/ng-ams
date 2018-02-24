@@ -1,0 +1,57 @@
+<form id="" class="mat-elevation-z4 p-24" fxLayout="column" name="form" [formGroup]="deviceForm" (ngSubmit)="onSubmit()">
+
+  <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+
+    <mat-input-container fxFlex="33">
+      <mat-select placeholder="Device Type" formControlName="deviceType" required [ngModel]="device?.deviceType" (ngModelChange)="device.deviceType=$event">
+        <mat-option>--</mat-option>
+        <mat-option *ngFor="let device of deviceList" [value]="device.value">
+          {{device.text}}
+        </mat-option>
+      </mat-select>
+      <!--<mat-error *ngIf="deviceType.hasError('required')">Please choose an device type</mat-error>-->
+      <!--<mat-hint>{{deviceType.value?.value}}</mat-hint>-->
+    </mat-input-container>
+
+    <mat-input-container fxFlex="34">
+      <input matInput placeholder="Brand" name="brand" formControlName="brand" [ngModel]="device?.brand"
+             (ngModelChange)="device.brand= $event">
+    </mat-input-container>
+
+    <mat-input-container fxFlex="33">
+      <input matInput placeholder="Model No" formControlName="modelNo" [ngModel]="device?.modelNo" (ngModelChange)="device.modelNo = $event">
+      <mat-error *ngIf="formErrors.modelNo.required">
+        Required
+      </mat-error>
+    </mat-input-container>
+
+  </div>
+
+  <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+
+    <mat-input-container fxFlex="33">
+      <input matInput placeholder="Unique id" name="deviceType" formControlName="uniqueId" [ngModel]="device?.uniqueId" (ngModelChange)="device.uniqueId= $event">
+      <mat-error *ngIf="formErrors.deviceType.required">
+        Required
+      </mat-error>
+    </mat-input-container>
+
+    <mat-input-container fxFlex="34">
+      <input matInput placeholder="Warranty" name="brand" formControlName="warranty" [ngModel]="device?.warranty"
+             (ngModelChange)="device.warranty= $event">
+    </mat-input-container>
+
+    <mat-input-container fxFlex="33">
+      <input matInput placeholder="Description" formControlName="description" [ngModel]="device?.description" (ngModelChange)="device.description = $event">
+    </mat-input-container>
+
+  </div>
+  <div class="pt-24" fxLayout="row" fxLayoutAlign="center center">
+    <!--<button class="mr-8" mat-raised-button type="button" color="accent">
+      Previous
+    </button>-->
+    <button type="submit" [disabled]="deviceForm.invalid" mat-raised-button color="accent">
+      Finish
+    </button>
+  </div>
+</form>

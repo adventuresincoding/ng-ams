@@ -1,0 +1,159 @@
+<div id="forms" class="page-layout simple fullwidth" fxLayout="column" fusePerfectScrollbar>
+    <!-- <form class="mat-white-bg mat-elevation-z4 p-24 mr-24 mb-24" fxLayout="column" fxLayoutAlign="start" fxFlex="1 0 auto" name="form"
+        [formGroup]="form"> -->
+    <p class="pb-32">
+        Angular Material's stepper provides a wizard-like workflow by dividing content into logical steps.
+        <code>mat-vertical-stepper</code> can be used to create a vertical stepper.
+    </p>
+
+    <div class="vertical-stepper-wrapper">
+
+        <!-- VERTICAL STEPPER EXAMPLE -->
+        <mat-vertical-stepper class="mat-elevation-z4" [linear]="true">
+
+            <mat-step [stepControl]="verticalStepperStep1">
+
+                <form [formGroup]="verticalStepperStep1">
+
+                    <ng-template matStepLabel>Fill out type</ng-template>
+
+                    <div>                      
+
+                        <mat-form-field class="demo-chip-list">
+                            <mat-chip-list #chipList>
+                                <mat-chip *ngFor="let fruit of fruits" [selectable]="selectable"
+                                          [removable]="removable" (remove)="remove(fruit)" color="accent">
+                                    {{fruit.name}}
+                                    <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                                </mat-chip>
+                                <input placeholder="New Type..."
+                                       [matChipInputFor]="chipList"
+                                       [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                                       [matChipInputAddOnBlur]="addOnBlur"
+                                       (matChipInputTokenEnd)="add($event)" formControlName="hardwareType" [(ngModel)]="lookup.lookupName" required/>
+                                       <mat-error *ngIf="verticalStepperStep1Errors.hardwareType.required">Hardware type is required</mat-error>
+                            </mat-chip-list>                            
+                        </mat-form-field>
+
+                    </div>
+
+                    <div class="pt-24" fxLayout="row" fxLayoutAlign="center center">
+                        <button mat-raised-button matStepperNext type="button" color="accent">
+                            Next
+                        </button>
+                    </div>
+
+                </form>
+
+            </mat-step>
+
+            <mat-step [stepControl]="verticalStepperStep2">
+
+                <form [formGroup]="verticalStepperStep2">
+
+                    <ng-template matStepLabel>Fill out properties</ng-template>
+
+                    <div>                        
+
+                        <mat-form-field class="demo-chip-list">
+                            <mat-chip-list #chipList>
+                                <mat-chip *ngFor="let property of properties" [selectable]="selectable" 
+                                          [removable]="removable" (remove)="removeProperty(property)" color="accent">
+                                    {{property.lookupTypeName}}
+                                    <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                                </mat-chip>
+                                <input placeholder="New property..."
+                                       [matChipInputFor]="chipList"
+                                       [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                                       [matChipInputAddOnBlur]="addOnBlur"
+                                       (matChipInputTokenEnd)="addProperty($event)" formControlName="property" required/>
+                                       <mat-error *ngIf="verticalStepperStep2Errors.property.required">
+                                        Address is required!
+                                    </mat-error>
+                            </mat-chip-list>                            
+                        </mat-form-field>
+
+                    </div>
+
+                    <div class="pt-24" fxLayout="row" fxLayoutAlign="center center">
+                        <button class="mr-8" mat-raised-button matStepperPrevious type="button" color="accent">
+                            Previous
+                        </button>
+                        <button mat-raised-button matStepperNext type="button" color="accent">
+                            Next
+                        </button>
+                    </div>
+
+                </form>
+
+            </mat-step>   
+            
+            <mat-step [stepControl]="verticalStepperStep3">
+
+                <form [formGroup]="verticalStepperStep3">
+
+                    <ng-template matStepLabel>Fill out features</ng-template>
+
+                    <div *ngFor="let property of properties">                        
+                    <span class="m-4">Features for {{property.lookupTypeName}}</span>
+                        <mat-form-field class="demo-chip-list">
+                            <mat-chip-list #chipList>
+                                <mat-chip *ngFor="let feature of property?.assetLookupTypesFeature" [selectable]="selectable" 
+                                          [removable]="removable" (remove)="removeFeature(property,feature)" color="accent">
+                                    {{feature.propertyValue}}
+                                    <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                                </mat-chip>                                
+                                <input placeholder="feature for...{{property.lookupTypeName}}"
+                                       [matChipInputFor]="chipList"
+                                       [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                                       [matChipInputAddOnBlur]="addOnBlur"
+                                       (matChipInputTokenEnd)="addFeature($event,property)" formControlName="featureList" required/>
+                                       <mat-error *ngIf="verticalStepperStep3Errors.featureList.required">
+                                        Address is required!
+                                    </mat-error>
+                                    <mat-checkbox>Required!</mat-checkbox>
+                            </mat-chip-list>                            
+                        </mat-form-field>
+
+                    </div>
+
+                    <div class="pt-24" fxLayout="row" fxLayoutAlign="center center">
+                        <button class="mr-8" mat-raised-button matStepperPrevious type="button" color="accent">
+                            Previous
+                        </button>
+                        <button mat-raised-button matStepperNext type="button" color="accent">
+                            Next
+                        </button>
+                    </div>
+
+                </form>
+
+            </mat-step> 
+
+            <mat-step>
+
+                <ng-template matStepLabel>Done</ng-template>
+
+                <div class="h2 m-16" fxLayout="row" fxLayoutAlign="center center">
+                  Click finish to save the form.
+                </div>
+
+                <div class="pt-24" fxLayout="row" fxLayoutAlign="center center">
+                    <button class="mr-8" mat-raised-button matStepperPrevious type="button" color="accent">
+                        Previous
+                    </button>
+                    <button mat-raised-button type="button" color="accent" (click)="finishVerticalStepper()">
+                        Finish
+                    </button>
+                </div>
+
+            </mat-step>
+
+        </mat-vertical-stepper>
+        <!-- / VERTICAL STEPPER EXAMPLE -->
+
+    </div>
+    <!-- </form> -->
+    <!-- / CONTENT -->
+
+</div>

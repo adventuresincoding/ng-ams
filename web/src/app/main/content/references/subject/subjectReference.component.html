@@ -1,0 +1,28 @@
+<ngx-datatable #mydatatable class="material" [headerHeight]="50" [limit]="5" [columnMode]="'force'" [footerHeight]="50" [rowHeight]="'auto'"
+[rows]="rows">
+<ngx-datatable-column name="Subject" prop="name">
+    <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+        <span title="Double click to edit" (dblclick)="editing[row.$$index + '-name'] = true" *ngIf="!editing[row.$$index + '-name']">
+            {{value}}
+        </span>
+        <input autofocus (blur)="updateValue($event, 'name', value, row)" *ngIf="editing[row.$$index + '-name']" type="text" [value]="value"
+        />
+    </ng-template>
+</ngx-datatable-column>   
+
+<ngx-datatable-column name="Notes" prop="description">
+    <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+        <span title="Double click to edit" (dblclick)="editing[row.$$index + '-description'] = true" *ngIf="!editing[row.$$index + '-description']">
+            {{value}}
+        </span>
+        <input autofocus (blur)="updateValue($event, 'description', value, row)" *ngIf="editing[row.$$index + '-description']" type="text" [value]="value"
+        />
+    </ng-template>
+</ngx-datatable-column>
+
+</ngx-datatable>
+
+<button mat-fab class="mat-accent-bg" id="add-contact-button" (click)="newSubject()" aria-label="add subject" *fuseIfOnDom
+[@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}">
+<mat-icon>person_add</mat-icon>
+</button>

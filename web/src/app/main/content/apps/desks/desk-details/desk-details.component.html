@@ -1,0 +1,253 @@
+<div id="order" class="page-layout carded fullwidth" fusePerfectScrollbar>
+
+    <!-- TOP BACKGROUND -->
+    <div class="top-bg mat-accent-bg"></div>
+    <!-- / TOP BACKGROUND -->
+
+    <!-- CENTER -->
+    <div class="center">
+
+        <!-- HEADER -->
+        <div class="header white-fg" fxLayout="row" fxLayoutAlign="space-between center">
+
+            <!-- APP TITLE -->
+            <div fxLayout="row" fxLayoutAlign="start center">
+
+                <button class="mr-16" mat-icon-button (click)="goBack()">
+                    <mat-icon>arrow_back</mat-icon>
+                </button>
+
+                <div>
+                    <h2>Desk details</h2>
+                </div>
+            </div>
+            <!-- / APP TITLE -->
+
+        </div>
+
+        <!-- / HEADER -->
+
+        <!-- CONTENT CARD -->
+        <div class="content-card mat-white-bg">
+
+            <!-- CONTENT -->
+            <div class="content">
+
+                <mat-tab-group>
+
+                    <mat-tab label="Desk Details">
+
+                        <div class="order-details tab-content p-24" fusePerfectScrollbar>
+
+                            <div class="section pb-48">
+
+                                <div class="pb-16" fxLayout="row" fxLayoutAlign="start center">
+                                    <mat-icon class="m-0 mr-16">account_circle</mat-icon>
+                                    <div class="h2 secondary-text">Desk</div>
+                                </div>
+
+                                <div class="customer">
+                                    <table class="simple">
+                                        <thead>
+                                            <tr>
+                                                <th>Desk No</th>
+                                                <th>Location</th>
+                                                <th>Assigned To</th>
+                                                <th>Description</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>{{hardwareConfiguration?.desk?.deskNo}}</td>
+                                                <td>{{hardwareConfiguration?.desk?.location}}</td>
+                                                <td>{{hardwareConfiguration?.employeeAssigned.firstName}}</td>
+                                                <td>{{hardwareConfiguration?.desk?.description}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </mat-tab>
+
+                    <mat-tab label="Software Description">
+
+                        <mat-table #table [dataSource]="dataSource" [@animateStagger]="{value:'50'}">
+                            <!-- Checkbox Column -->
+                            <ng-container cdkColumnDef="checkbox">
+                                <mat-header-cell *cdkHeaderCellDef></mat-header-cell>
+                                <mat-cell *cdkCellDef="let software">
+                                    <mat-checkbox>
+                                    </mat-checkbox>
+                                </mat-cell>
+                            </ng-container>
+
+                            <!-- Name Column -->
+                            <ng-container cdkColumnDef="name">
+                                <mat-header-cell *cdkHeaderCellDef>Name</mat-header-cell>
+                                <mat-cell *cdkCellDef="let software">
+                                    <p class="text-truncate font-weight-600">{{software?.softwareName}}</p>
+                                </mat-cell>
+                            </ng-container>
+
+                          
+                            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                        </mat-table>
+
+                    </mat-tab>
+
+                    <mat-tab label="Properties/Features">
+                        <div class="products tab-content p-24" fusePerfectScrollbar>
+                            <table class="simple">
+                                <thead>
+                                    <tr>
+                                        <th>Hardware Type</th>
+                                        <th>Brand</th>
+                                        <th>Specifications</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let hardware of hardwareConfiguration?.hardwareList">
+                                        <td>{{hardware.hardwareType}}</td>
+                                        <td>{{hardware.brand}}</td>
+                                        <td>
+                                            <button mat-icon-button [matMenuTriggerFor]="menu">
+                                                <mat-icon>cast</mat-icon>
+                                            </button>
+                                            <mat-menu #menu="matMenu">
+                                                <button mat-menu-item *ngFor="let config of hardware?.hardwareSpecificationList">
+                                                    <mat-icon>dialpad</mat-icon>
+                                                    <span class="mat-body-2">{{config.key}}: </span>
+                                                    <span class="text-boxed">{{config.value}}</span>
+                                                </button>
+                                            </mat-menu>
+                                        </td>
+                                        <td>
+                                            <!-- <tr *ngFor="let config of hardware?.hardwareSpecificationList">
+                                                <td>{{config.key}}</td>
+                                                <td>{{config.value}}</td>
+                                            </tr> -->
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </mat-tab>
+
+                    <mat-tab label="Assigned History">
+
+                        <div class="invoice tab-content p-24" fusePerfectScrollbar>
+
+                            <div id="invoice" class="compact page-layout blank" fxLayout="row" fusePerfectScrollbar>
+
+                                <div class="invoice-container">
+
+                                    <!-- INVOICE -->
+                                    <div class="card">
+
+                                        <div class="header">
+                                            <div class="invoice-date"></div>
+
+                                            <div fxLayout="row" fxLayoutAlign="space-between stretch">
+                                                <div class="client">
+                                                    <!-- <div class="invoice-number" fxLayout="row" fxLayoutAlign="start center">
+                                                        <span class="title">INVOICE</span>
+                                                        <span class="number">{{order.reference}}</span>
+                                                    </div>
+
+                                                    <div class="info">
+                                                        <div class="title">
+                                                            {{order.customer.firstName}}
+                                                            {{order.customer.lastName}}
+                                                        </div>
+                                                        <div class="address">{{order.customer.invoiceAddress}}</div>
+                                                        <div class="phone">{{order.customer.phone}}</div>
+                                                        <div class="email">{{order.customer.email}}</div>
+                                                    </div> -->
+                                                </div>
+
+                                                <div class="issuer mat-accent-bg" fxLayout="row" fxLayoutAlign="start center">
+                                                    <div class="logo">
+                                                        <img src="assets/images/logos/fuse.svg">
+                                                    </div>
+
+                                                    <div class="info">
+                                                        <div class="title">Assets Management System.</div>
+                                                        <div class="address">2810 Country Club Road Cranford, NJ 07016</div>
+                                                        <div class="phone">+66 123 455 87</div>
+                                                        <div class="email">hello@ams.com</div>
+                                                        <div class="website">www.ams.com</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="content">
+
+                                            <table class="simple invoice-table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>PRODUCT</th>
+                                                        <th class="text-right">PRICE</th>
+                                                        <th class="text-right">QUANTITY</th>
+                                                        <th class="text-right">TOTAL</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <!-- <tr *ngFor="let product of order.products">
+                                                        <td>
+                                                            <div class="title">
+                                                                {{product.name}}
+                                                            </div>
+                                                        </td>
+                                                        <td class="text-right">
+                                                            {{product.price | currency:'USD':'symbol'}}
+                                                        </td>
+                                                        <td class="text-right">
+                                                            {{product.quantity}}
+                                                        </td>
+                                                        <td class="text-right">
+                                                            {{product.total | currency:'USD':'symbol'}}
+                                                        </td>
+                                                    </tr> -->
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                        <div class="footer">
+                                            <div class="note">Please pay within 15 days. Thank you for your business.</div>
+                                            <div fxLayout="row" fxLayoutAlign="start start">
+                                                <div class="logo">
+                                                    <img src="assets/images/logos/fuse.svg">
+                                                </div>
+                                                <div class="small-note">
+                                                    In condimentum malesuada efficitur. Mauris volutpat placerat auctor. Ut ac congue dolor. Quisque scelerisque lacus sed feugiat
+                                                    fermentum. Cras aliquet facilisis pellentesque. Nunc hendrerit quam at
+                                                    leo commodo, a suscipit tellus dapibus. Etiam at felis volutpat est mollis
+                                                    lacinia. Mauris placerat sem sit amet velit mollis, in porttitor ex finibus.
+                                                    Proin eu nibh id libero tincidunt lacinia et eget eros.
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- / INVOICE -->
+
+                                </div>
+                            </div>
+                        </div>
+                    </mat-tab>
+
+                </mat-tab-group>
+
+            </div>
+            <!-- / CONTENT -->
+
+        </div>
+        <!-- / CONTENT CARD -->
+
+    </div>
+    <!-- / CENTER -->
+</div>

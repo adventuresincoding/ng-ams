@@ -1,0 +1,53 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title">New Subject</span>
+            <button mat-button class="mat-icon-button" (click)="dialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </div>
+    </mat-toolbar>
+
+    <div mat-dialog-content class="p-24 m-0" fusePerfectScrollbar>
+
+        <form [formGroup]="subjectForm">
+
+            <div class="mb-24" fxLayout="row" fxLayoutAlign="start start">
+                <mat-icon class="mr-12 mt-12">account_circle</mat-icon>
+                <mat-form-field fxFlex>
+                    <input name="Subject" [ngModel]="subject?.name" (ngModelChange)="subject.name=$event" formControlName="Name" placeholder="Exam Name"
+                        matInput required>
+                </mat-form-field>                
+            </div>            
+
+            <div fxLayout="row" class="textarea-wrapper" fxLayoutAlign="start start">
+                <mat-icon class="mr-12 mt-12">note</mat-icon>
+                <mat-form-field fxFlex>
+                    <textarea name="notes" [ngModel]="subject?.description" (ngModelChange)="subject.description = $event" formControlName="Description"
+                        placeholder="Notes" matInput type="text" max-rows="4"></textarea>
+                </mat-form-field>
+            </div>
+
+        </form>
+
+    </div>
+
+    <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="space-between center">
+
+        <button *ngIf="action !=='edit'" mat-raised-button (click)="dialogRef.close(subjectForm)" class="save-button mat-accent"
+            [disabled]="subjectForm.invalid" aria-label="SAVE">
+            SAVE
+        </button>
+
+        <button *ngIf="action ==='edit'" mat-raised-button (click)="dialogRef.close(['save',subjectForm])" class="save-button mat-accent"
+            [disabled]="subjectForm.invalid" aria-label="SAVE">
+            SAVE
+        </button>
+
+        <button *ngIf="action ==='edit'" mat-button class="mat-icon-button" (click)="dialogRef.close(['delete',subjectForm])" aria-label="Delete"
+            matTooltip="Delete">
+            <mat-icon>delete</mat-icon>
+        </button>
+
+    </div>
+</div>
